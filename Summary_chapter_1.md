@@ -1,4 +1,5 @@
-# Glossar
+# Glossar: Introduction Fault Tolerance (Chapter 1)
+In this chapter, the definition of important terms for fault tolerance are introduced and quickly summarized in a glossar
 
 ## Fault
 A fault is the defect that is present in the system that can cause an error. It is the actual deviation from the correctness. Often called a bug and are present in every system. 
@@ -6,13 +7,13 @@ In general, neither the software nor the observers are aware of the presence of 
 ### Types: 
 - Latent: "sleeping" fault
 - active: becomes visible and results in an error
-## Causes
+### Causes
 - Incorrect Requirement Specification (agreed description of the system's expected function /service)
 - Incorrect Designs
 - Coding Errors 
 
 ## Error
-Is caused by a Fault and is that part of the system state that is liable to lead to subsequent failure. It is the incorrect system behavior from which a failure may occur. Errors are important when talking about fault tolerant systems, because they can be detected before they become failures. 
+Is caused by a Fault and is that part of the system state that is liable to lead to subsequent failure. It is the incorrect system behavior from which a failure may occur. Errors are important when talking about fault tolerant systems, because they can be detected before they become failures and enable us to look into the system to discover if faults are present. 
 
 ### Types: 
 - Timing 
@@ -26,8 +27,6 @@ Is caused by a Fault and is that part of the system state that is liable to lead
 - Failure to Handle Overload conditions
 - Wild Transfer of Wild Write (Data written to an incorrect location)
 
-- Errors can be detected before they become failures
-- Errors are the way that we can look into the system to discover if faults are present
 ## Failure
 Failure occurs when the system no longer complies with the specification. Failures can be categorized into **fail-silent**,** crash failure** and** fail-Stop**. And they can either be **consistent** or **inconsistent** based on if the failure changes depending on the viewpoint of different users or other systems that are determining that the failing system did not conform to its specification.
 ### Types: 
@@ -36,12 +35,10 @@ Failure occurs when the system no longer complies with the specification. Failur
 - **Fail-stop**: if the crash failure is visible to the rest of the system 
 - **Consistent**: Failure appears the same each time it is observed and seen as the same kind of failure by all users or observers of a system 
 - **Inconsistent**: Appear different to different observers (very hard to detect and to correct)
-
 ### Example:
-An example of failing consistently is reporting '1' in response to all questions that the system is asked. Inconsistent when one user receives '1' for all questions but another one '2'.
-
+An example of failing consistently is reporting '1' in response to all questions that the system is asked. Inconsistent when one user receives '1' for all questions but another user receives for all '2'.
 ### Single Faults
-The assumption is that only one error will occur at a time, are independent of each other and the recovery from the error has completed before another error occurs. 
+The assumption is that only **one error will occur at a time**, are **independent** of each other and the recovery from the error has **completed before** another error occurs. 
 
 Overview of how many redundant units are required to tolerate independent faults of three kinds: 
 
@@ -55,7 +52,7 @@ Overview of how many redundant units are required to tolerate independent faults
 ## Examples of Fault -> Error -> Failure
 
 A robotic arm used to drill a part in a manufacturing environment 
-Fault of a misplaced decimal point in a data constant in the computation of the rotation of the robot's arm. (Steps required to rotate the robotic arm one degree). The error might be that it rotates in the wrong direction because of the faulty decimal point. The arm fails by lowering its drill at the wrong location 
+**Fault** of a misplaced decimal point in a data constant in the computation of the rotation of the robot's arm. (Steps required to rotate the robotic arm one degree). The **error** might be that it rotates in the wrong direction **because of the faulty decimal point**. The arm **fails** by lowering its drill at the wrong location 
 
 ## Coverage
 Coverage is the conditional probability that the system will recover automatically within the required time interval that an error has occurred and is calculated from the probability associated with detection and recovery.  
@@ -96,4 +93,8 @@ Dependability is a measure of a system's trustworhiness to be relied upon to per
 ### Reliability Engineering and Analysis
 
 ## Performance 
+
+
+## Questions
+Every system has faults [YES]  
 

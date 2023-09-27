@@ -1,36 +1,25 @@
 # Glossar
 
 ## Fault
-Is the defect that is present in the system that can cause an error. It is the actual deviation from the correctness. Often called a bug.  
-In general, neither the software nor the observers are aware of the presence of a fault until an error occurs. Multiple faults create the same error and in the same failure. 
+A fault is the defect that is present in the system that can cause an error. It is the actual deviation from the correctness. Often called a bug and are present in every system. 
+In general, neither the software nor the observers are aware of the presence of a fault until an error occurs. If the fault is dormant and not causing any mischief the fault is considered to be latent. When the latent fault causes something incorrect, the fault becomes active and results in an error.  Multiple faults can create the same error leading to the same failure. 
 ### Types: 
-- Latent 
-- active 
-### Examples
-- Incorrect Requirement Specification 
+- Latent: "sleeping" fault
+- active: becomes visible and results in an error
+## Causes
+- Incorrect Requirement Specification (agreed description of the system's expected function /service)
 - Incorrect Designs
 - Coding Errors 
-
-### Single Faults
-The assumption is that only one error will occur at a time. Error are independent of each other and recover from it has completed before another error occurs. 
--> how many redundant units are required to tolerate independent faults of thre kinds: 
-
-| minimum number of components to tolerate fauilures | Type of Failure      |
-| -------------------------------------------------- | -------------------- |
-| n + 1                                              | Fail silent failures |
-| 2n + 1                                             | Consistent failures  |
-| 3n + 1                                             | Malicious failures   | 
-
 
 ## Error
 Is caused by a Fault and is that part of the system state that is liable to lead to subsequent failure. It is the incorrect system behavior from which a failure may occur. Errors are important when talking about fault tolerant systems, because they can be detected before they become failures. 
 
 ### Types: 
-- Timing
-- Value
+- Timing 
+- Value: incorrect discrete values or incorrect system state
 
 ### Examples
-- Timing or Race conditions 
+- Timing or Race conditions (processes out of synchronization and race for resources)
 - Infinite Loops
 - Protocol Error (error in the messaging stream, unexpected message, out of sequence, inappropriate times, )
 - Data inconsistency (elements in a network or data memory and disk different)
@@ -39,21 +28,28 @@ Is caused by a Fault and is that part of the system state that is liable to lead
 
 - Errors can be detected before they become failures
 - Errors are the way that we can look into the system to discover if faults are present
-- 
 ## Failure
-Failure occurs when the system no longer complies with the specification 
-
+Failure occurs when the system no longer complies with the specification. Failures can be categorized into **fail-silent**,** crash failure** and** fail-Stop**. And they can either be **consistent** or **inconsistent** based on if the failure changes depending on the viewpoint of different users or other systems that are determining that the failing system did not conform to its specification.
 ### Types: 
-- Fail-silent: failing unit either presents the correct result or no result at all
-- crash Failure: Unit stops after the first fail-silent failure 
-- Fail-stop: if the crash failure is visible to the rest of the system 
-- Consistent: Failure appears the same each time it is observed and seen as the same kind of failure by all users or observers of a system 
-- Inconsistent: Appear different to different observers (very hard to detect and to correct)
+- **Fail-silent**: failing unit either presents the correct result or no result at all
+- **Crash failure**: Unit stops after the first fail-silent failure 
+- **Fail-stop**: if the crash failure is visible to the rest of the system 
+- **Consistent**: Failure appears the same each time it is observed and seen as the same kind of failure by all users or observers of a system 
+- **Inconsistent**: Appear different to different observers (very hard to detect and to correct)
 
+### Example:
+An example of failing consistently is reporting '1' in response to all questions that the system is asked. Inconsistent when one user receives '1' for all questions but another one '2'.
 
-Questions: 
+### Single Faults
+The assumption is that only one error will occur at a time, are independent of each other and the recovery from the error has completed before another error occurs. 
 
-Errors are the way that we can look into the system to discover if faults are present [Ja]
+Overview of how many redundant units are required to tolerate independent faults of three kinds: 
+
+| minimum number of components to tolerate failures | Type of Failure      |
+| -------------------------------------------------- | -------------------- |
+| n + 1                                              | Fail silent failures |
+| 2n + 1                                             | Consistent failures  |
+| 3n + 1                                             | Malicious failures   | 
 
 
 ## Examples of Fault -> Error -> Failure

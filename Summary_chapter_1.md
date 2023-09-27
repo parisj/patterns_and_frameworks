@@ -37,7 +37,7 @@ Failure occurs when the system no longer complies with the specification. Failur
 - **Inconsistent**: Appear different to different observers (very hard to detect and to correct)
 ### Example:
 An example of failing consistently is reporting '1' in response to all questions that the system is asked. Inconsistent when one user receives '1' for all questions but another user receives for all '2'.
-### Single Faults
+## Single Faults
 The assumption is that only **one error will occur at a time**, are **independent** of each other and the recovery from the error has **completed before** another error occurs. 
 
 Overview of how many redundant units are required to tolerate independent faults of three kinds: 

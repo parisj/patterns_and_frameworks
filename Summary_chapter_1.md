@@ -49,7 +49,7 @@ Overview of how many redundant units are required to tolerate independent faults
 | 3n + 1                                             | Malicious failures   | 
 
 
-## Examples of Fault -> Error -> Failure
+## Example of Fault -> Error -> Failure
 
 A robotic arm used to drill a part in a manufacturing environment 
 **Fault** of a misplaced decimal point in a data constant in the computation of the rotation of the robot's arm. (Steps required to rotate the robotic arm one degree). The **error** might be that it rotates in the wrong direction **because of the faulty decimal point**. The arm **fails** by lowering its drill at the wrong location 

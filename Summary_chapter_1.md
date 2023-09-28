@@ -28,7 +28,7 @@ Is caused by a Fault and is that part of the system state that is liable to lead
 - Wild Transfer of Wild Write (Data written to an incorrect location)
 
 ## Failure
-Failure occurs when the system no longer complies with the specification. Failures can be categorized into **fail-silent**,** crash failure** and** fail-Stop**. And they can either be **consistent** or **inconsistent** based on if the failure changes depending on the viewpoint of different users or other systems that are determining that the failing system did not conform to its specification.
+Failure occurs when the system no longer complies with the specification. Failures can be categorized into **fail-silent**, **crash failure** and **fail-Stop**. And they can either be **consistent** or **inconsistent** based on if the failure changes depending on the viewpoint of different users or other systems that are determining that the failing system did not conform to its specification.
 ### Types: 
 - **Fail-silent**: failing unit either presents the correct result or no result at all
 - **Crash failure**: Unit stops after the first fail-silent failure 

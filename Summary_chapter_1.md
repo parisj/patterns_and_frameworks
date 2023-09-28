@@ -1,3 +1,5 @@
+###### Anton Paris & Fadil Smajilbasic
+
 # Glossar: Introduction Fault Tolerance (Chapter 1)
 
 In this chapter, the definition of important terms for fault tolerance are introduced and quickly summarized in a glossar
@@ -78,7 +80,9 @@ Coverage is the conditional probability that the system will recover automatical
 Reliability is the probability that it will perform without failures during a specified time
 
 **Mean Time to Failure (MTTF)**: Average time from start of the operation until the time when the when the first failure occurs.
+
 **Mean Time to Repair (MTTR)**: Average Time required to restore a failing component to operation (replace faulty hardware with addition to the time to travel to the site)
+
 **Mean Time between Failures (MTBF)**: Average Time from the start of operation until the component is restored (MTTF + MTTR)
 
 ### Examples
@@ -138,9 +142,10 @@ The failure rate, (λ), is the inverse of the MTTF, and the repair rate (µ) is 
 
 ## Performance
 
-Performance and reliability are two closely related concepts. 
-- A performance requirement would be that the application performs failure-free for three days.
-- A reliability requirement would be that the system supports 300 000 transactions per hour with a graceful degradation above this level of traffic
+Performance and reliability are two closely related concepts.
+
+-   A performance requirement: the application performs failure-free for three days.
+-   A reliability requirement: the system supports 300 000 transactions per hour with a graceful degradation above this level of traffic
 
 Failures of either of these example requirements are performance failures.
 
@@ -150,22 +155,22 @@ Can be partial or complete. Clear performance requirements must be specified. Th
 
 #### Examples
 
-- *Too many requests for a service arriving at the system*  
-  - The overloaded system might:
-    1. stop working
-    2. become saturated with reduced throughput, or 
-    3. not return to acceptable levels after the load returns to normal levels.
-- *The system might not be able to handle the expected volume of service requests*, which is clearly a failure to achieve the specifications
-
+-   _Too many requests for a service arriving at the system_
+    -   The overloaded system might:
+        1. stop working
+        2. become saturated with reduced throughput, or
+        3. not return to acceptable levels after the load returns to normal levels.
+-   _The system might not be able to handle the expected volume of service requests_, which is clearly a failure to achieve the specifications
 
 **The capacity** of a system represents a tradeoff between the system’s cost and its dependability under load.
 
 Since failures are the result of faults, a well designed fault tolerant system will be able to both process the required level of requests and gracefully handle excess workload
 
-We can think of the fault as either the system not including the techniques required to handle the arriving workload *(avoided by defining clear specifications)* or the excess number of arriving requests *(considered an error that must be handled by the system)*.
+We can think of the fault as either the system not including the techniques required to handle the arriving workload _(avoided by defining clear specifications)_ or the excess number of arriving requests _(considered an error that must be handled by the system)_.
 
 A fault tolerant system should be able to work through an intense workload saturation without failing. As the workload decreases the system should follow its same performance curve and continue to process the workload, without any periods of unavailability.
 
 ## Questions
 
 Every system has faults [YES]
+A Performance failiure is only when the whole system stops working [No]

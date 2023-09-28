@@ -162,7 +162,7 @@ Can be partial or complete. Clear performance requirements must be specified. Th
 
 Since failures are the result of faults, a well designed fault tolerant system will be able to both process the required level of requests and gracefully handle excess workload
 
-We can think of the fault as either the system not including the techniques required to handle the arriving workload *(avoided by clear specifications)* or the excess number of arriving requests *(considered an error that must be handled by the system)*.
+We can think of the fault as either the system not including the techniques required to handle the arriving workload *(avoided by defining clear specifications)* or the excess number of arriving requests *(considered an error that must be handled by the system)*.
 
 A fault tolerant system should be able to work through an intense workload saturation without failing. As the workload decreases the system should follow its same performance curve and continue to process the workload, without any periods of unavailability.
 

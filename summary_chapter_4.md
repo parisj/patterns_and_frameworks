@@ -274,5 +274,5 @@ The escalation steps are not generic. They depend on the nature of the system an
 
 # Prüfungsfragen
 
-    1.  Frage **[Ja/Nein]**
-    2.  Frage **[Ja/Nein]**
+1.  A Tier-based mitigation unit is enugh to guarantee the availability of the system? **[Nein]**
+2.  In most cases human intervention is neccessary at the highes level of an Escalation chain **[Ja]**

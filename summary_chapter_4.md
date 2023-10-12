@@ -7,24 +7,19 @@ Each part of the system must support those patterns to actually profit of the im
 The patterns are in strong relation to each other but Units of Mitigation are the building blocks of a fault tolerant system. 
 
 # Correcting Audits
---------------------------------
-## Intro
---------------
 
+## Intro
 Design data to be checked and check data for errors. If errors are found, correct both the erroneous data and look for errors in related data 
 ## Problem
---------------------------------
 Data errors occur when the data get corrupted, be it from low level hardware (memory chips) or application functions that store incorrect values into a data element. Data errors can also occur from random and transient events (alpha rays emitted from integrated circuit packaging).
 
 Error from faulty data propagate throughout the system and the period of time between detection and recovery is long. The probability for another task to use the faulty data is high.
 ## Forces
---------------------------------------
 **Faulty data causes errors** therefore it is important correct them quickly.
 There are a wide range of different types of errors and therefore need different audits. The context of the data is important to decide what kind of checks need to be done and create an additional overhead and cost resources. There is also the risk of flagging data as incorrect even thought it is correct. The system must be designed in such a way that data can easily be checked.
 
 The goal is to reduce downtime and increase system reliability by early error detection, correction and preventing those errors to propagate throughout the system. Also the additional logging gives better insight into the system. 
 ## Solution
-----------------------------------
 Checking or 'auditing' data for errors is accomplished by using other information that is known about the data and check if the context suits the data. For example 1974 is a valid year but not a valid age. Context helps to define the allowable data. 
 Some ways the data can be checked: 
 
@@ -51,20 +46,15 @@ General Structure when data errors are detected:
 3. Resume execution 
 
 # Redundancy
-------------------------------------
 ## Intro
------------------------------------
 Error processing cannot begin until the error is detected. During Error recovery the system is unavailable. Minimizing this time period increases availability. 
 ## Problem
---------------------------------
 When the system detects an error is must focus on processing the error and that usually stops the normal execution.  Error recovery returns the system to a failure-free state but require large amounts of time to recover. For example checkpoints or rollback require the time to copy large amounts of memory to reset the system to a certain state.  
 ## Forces
---------------------------------------
 Redundancy is not free. There are the capital costs of extra resources such as memory or processing. There are also inherent risks and cost associated with maintaining the redundant elements . 
 By introducing redundancy to a system, the system's availability can greatly be increased.  Informational redundancy enables the system access to alternate versions of the data that correcting audits can use to quickly make a correction. Redundancy can also be used to improve performance (Parallel Computation: Cluster).
 
 ## Solution
-----------------------------------
 The system can use different types of redundandy: 
 
 Spatial: 
@@ -82,7 +72,6 @@ Informational:
 - Multiple versions of data
 
 
-## Prüfungsfragen
--------------------------------
+# Prüfungsfragen
 	1. Frage **[Ja/Nein]**
 	2.  Frage **[Ja/Nein]**

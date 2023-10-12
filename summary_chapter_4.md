@@ -6,7 +6,9 @@ Each part of the system must support those patterns to actually profit of the im
 
 The patterns are in strong relation to each other but Units of Mitigation are the building blocks of a fault tolerant system.
 
-![Architectural pattern language map](./patterns_map.png)
+![Architectural pattern language map](patterns_map.png)
+
+---
 
 # Units of Mitigation
 
@@ -90,6 +92,8 @@ Imagine a system with a three-tiered architecture^: user interface, a database a
 | Pros | Common approach,<br>Used by many systems              | Easy to define the units,<br> clean interfaces between tiers                   | The system can redistribute the workload if a single tier error occurs,<br>Queue buffers incoming requests |
 | Cons | when something fails the entire system is unavailable | any tier level error processing actually takes the whole system out of service | Adds complexity and further consideration into the whole system architecture                               |
 
+---
+
 # Correcting Audits
 
 ## Intro
@@ -138,6 +142,8 @@ General Structure when data errors are detected:
 2. Logging
 3. Resume execution
 
+---
+
 # Redundancy
 
 ## Intro
@@ -173,6 +179,8 @@ Temporal:
 Informational:
 
 -   Multiple versions of data
+
+---
 
 # Recovery Blocks
 
@@ -226,6 +234,10 @@ Consider a case where a section of the program to sort an array is considered a 
 
 The try/throw/catch mechanism of languages such as C++ and Java give one way to implement **recovery blocks**
 
+![recovery blocks](recovery_blocks.png)
+
+---
+
 # Escalation
 
 ## Intro
@@ -262,7 +274,9 @@ For a human operator there should be a predefined list of recovery actions that 
 
 ## Solution
 
-When recovery or mitigation is failing, escalate the action to the next more drastic action
+When recovery or mitigation is failing, escalate the action to the next more drastic action.
+
+![Escalation example](./escalation.png)
 
 At the end of the chain of Escalations, sometimes the best thing is to resume partial operation. Isolate the functionality that has the errors and allow the rest of the system to proceed as best as it can.
 

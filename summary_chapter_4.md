@@ -20,23 +20,27 @@ Portions of the system that perform different functions, such as interfacing to 
 
 ##### Key Points:
 
--   Units of mitigation should not share more than one processor unless
+Units of mitigation:
+
+-   Should not share more than one processor unless
     there is shared memory, or more than one region of non-distributed memory. Error detection and processing techniques work best with clear boundaries of memory.
--   The units of mitigation should be able to conduct self checks
+-   Should be able to conduct self checks
     to detect when they are not operating correctly.
--   The units of mitigation should fail silently in a deterministic way.
--   If the units are so small that any errors that occur cannot be recovered or mitigated, the unit is too small.
--   The units of mitigation should be able to be restarted without affecting the rest of the system.
--   The units of mitigation must be barriers to errors.
--   The unit of mitigation must detect internal errors quickly.
--   The only acceptable indication to other parts of the system should be the single indication that an error has occurred.
+-   Should fail in a deterministic way.
+-   If they are so small that any errors that occur cannot be recovered or mitigated, the unit is too small.
+-   Should be able to be restarted without affecting the rest of the system.
+-   Must be barriers to errors.
+-   Must detect internal errors quickly.
+-   Only a single indication that an error has occurred is an acceptable indication to other parts of the system.
 -   It is desirable for units of mitigation to fail silently and to isolate failures from other parts of the system.
 
 ## Problem
 
-In the simplest designs, there is one module that performs all of the work.
-You know that there will be faults in the system. Having only one module means that the entire system must stop to recover an error.
 How can you design the system to be available even when errors occur?
+
+In the simplest designs, there is one module that performs all of the work.
+You know that there will be faults in the system. 
+Having only one module means that the entire system must stop to recover an error.
 
 ## Forces
 

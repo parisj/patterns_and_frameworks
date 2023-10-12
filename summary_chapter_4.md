@@ -1,3 +1,5 @@
+# Chapter 4: Architectural Patterns
+
 The mentioned patterns in this chapter cut across all parts of the system. They don't fit neatly into the categories of error detection, error recovery, error mitigation and fault treatment. They don't focus solely on a particular class or method. They influence the design of the whole system and are also along the first applied patterns to a new design project make the system more fault tolerant. 
 
 Each part of the system must support those patterns to actually profit of the implementation and system availability. 

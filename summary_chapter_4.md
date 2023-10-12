@@ -77,6 +77,7 @@ Spatial:
 
 Temporal: 
 - Recovery Blocks
+
 Informational: 
 - Multiple versions of data
 

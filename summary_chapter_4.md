@@ -228,11 +228,9 @@ The try/throw/catch mechanism of languages such as C++ and Java give one way to 
 
 The system has tried many options to process or mitigate an error or failure in a component. Error processing has stalled without completing. Error processing must succeed to enable the system to resume normal operation
 
-
-
 ## Problem
 
-What does the system do when its attempt to process an error in a component is not achieving the correct effect? 
+What does the system do when its attempt to process an error in a component is not achieving the correct effect?
 
 In most cases, though, simply repeating the same techniques is not the right thing to do. The system should limit retries to prevent being stuck in an endless loop.
 
@@ -248,13 +246,13 @@ Sometimes the system can repeat the attempts to recover the component endlessly.
 
 More drastic alternatives include making the error processing less local.
 
-More and more processes, farther and farther from the faulty one, become involved in the recovery. 
+More and more processes, farther and farther from the faulty one, become involved in the recovery.
 
-For example, a first attempt might be to correct an input and retry an action. If that doesn’t achieve success then the task that processes the input is restored to a pre-error state through a *checkpoint* and *rollback*. If that does not succeed then the task is restarted. And if that doesn’t succeed then the task is assigned to a redundant processor.
+For example, a first attempt might be to correct an input and retry an action. If that doesn’t achieve success then the task that processes the input is restored to a pre-error state through a _checkpoint_ and _rollback_. If that does not succeed then the task is restarted. And if that doesn’t succeed then the task is assigned to a redundant processor.
 
 #### Someone in charge
 
-Escalation should report to *Someone in Charge* (Component) for it to trigger some new action. Depending on the nature of the errors and failures, it might request that there be human intervention. You should ensure that people can override system behavior when absolutely necessary
+Escalation should report to _Someone in Charge_ (Component) for it to trigger some new action. Depending on the nature of the errors and failures, it might request that there be human intervention. You should ensure that people can override system behavior when absolutely necessary
 
 For a human operator there should be a predefined list of recovery actions that can be taken. The list should start with those things that are fast, have a high probability of recovering and a minimal impact on other aspects of system operation; followed by other actions that are increasingly disruptive and slower.
 
@@ -262,15 +260,13 @@ For a human operator there should be a predefined list of recovery actions that 
 
 When recovery or mitigation is failing, escalate the action to the next more drastic action
 
-At the end of the chain of Escalations, sometimes the best thing is to resume partial operation. Isolate the functionality that has the errors and allow the rest of the system to proceed as best as it can. 
+At the end of the chain of Escalations, sometimes the best thing is to resume partial operation. Isolate the functionality that has the errors and allow the rest of the system to proceed as best as it can.
 
-Humans will almost always have to step in and correct the situation, or at least tell the system to retry the error correction. 
+Humans will almost always have to step in and correct the situation, or at least tell the system to retry the error correction.
 
 #### Identifying the escalation steps
 
 The escalation steps are not generic. They depend on the nature of the system and the nature of the errors and failures that are occurring. The escalation steps are a part of the system design and should be identified as part of the design process.
-
-
 
 # Prüfungsfragen
 

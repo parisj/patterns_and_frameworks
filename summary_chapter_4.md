@@ -81,8 +81,8 @@ Divide the system into parts that will contain both any errors and the error rec
 
 Imagine a system with a three-tiered architecture^: user interface, a database and a processing unit.
 
-|      | Single mitigation unit| Tier-based mitigation unit | Redundant tiers or queues  |
-| ---- | --- | --- | --- |
+|      | Single mitigation unit                                | Tier-based mitigation unit                                                     | Redundant tiers or queues                                                                                  |
+| ---- | ----------------------------------------------------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
 | Pros | Common approach,<br>Used by many systems              | Easy to define the units,<br> clean interfaces between tiers                   | The system can redistribute the workload if a single tier error occurs,<br>Queue buffers incoming requests |
 | Cons | when something fails the entire system is unavailable | any tier level error processing actually takes the whole system out of service | Adds complexity and further consideration into the whole system architecture                               |
 
@@ -170,13 +170,109 @@ Informational:
 
 -   Multiple versions of data
 
+# Recovery Blocks
+
+## Intro
+
+Recovery blocks are a way to divide the system into parts that can be recovered independently. The system can recover from errors in one block while the other blocks continue to operate.
+
+The recovery blocks are Units of Mitigation, they contain errors and are the basic unis of redundancy in which error processing is possible.
+
+A program with recovery blocks consists of a primary block and secondary blocks. If the result of the primary block fails its acceptance test then secondary blocks execute in sequence until the acceptance test passes. If no acceptable result is found then an error handler is invoked (ESCALATION).
+
+## Problem
+
+How can we make sure that processing results in an error-free value, when executing the same code repeatedly will produce the same error?
+
+## Forces
+
+#### Alternate implementations
+
+Alternate solutions need different implementations.
+
+When there are multiple redundant implementations the system can execute them simultaneously and pick the best answer using a combination of redundancy and voting.
+
+Another way of using multiple implementations is to execute them sequentially. Overhead is limited because alternative implementations only execute when the system detects errors.
+
+#### Simplification
+
+A common approach with recovery blocks is to make each successive block more simple than its predecessor. Each has a higher probability of satisfying the acceptance test because it is more simple. Some information is lost at each successive block because it is not performing all of the actions that were initially to be done by the primary block.
+
+#### Checkpoints
+
+The system must be able to return to a previous state if the recovery block is unable to produce an acceptable result. Checkpoint assure that the system can run secondary blocks with the same state as the primary block.
+
+#### Avoid many secondary blocks
+
+Project needs and reliability predictions determine the number of secondary blocks. The time spent processing the same information in successive secondary blocks is time that the system is unavailable for other work. Balance the need to have the result and the ability to try different methods, with the overall system availability specification.
+
+#### System complexity
+
+Added system complexity due to the acceptance test and the lack of alternative algorithms are two drawbacks of recovery blocks. Shared, global data also reduces the effectiveness of recovery blocks.
+
+Failure of a recovery block should not be used as an indication of a permanent fault in the system. The block may be reusable with different input or initial state
+
+## Solution
+
+Provide a diversity of redundancy implementations, either different designs or different coding. Execute them within a framework that checks for acceptable results from the execution of one and try the next secondary block, if the results were unacceptable.
+
+## Example
+
+Consider a case where a section of the program to sort an array is considered a _Unit of Mitigation_, different sorting algorithms are the **recovery blocks**.
+
+The try/throw/catch mechanism of languages such as C++ and Java give one way to implement **recovery blocks**
+
+# Escalation
+
+## Intro
+
+The system has tried many options to process or mitigate an error or failure in a component. Error processing has stalled without completing. Error processing must succeed to enable the system to resume normal operation
+
+
+
+## Problem
+
+What does the system do when its attempt to process an error in a component is not achieving the correct effect? 
+
+In most cases, though, simply repeating the same techniques is not the right thing to do. The system should limit retries to prevent being stuck in an endless loop.
+
+## Forces
+
+#### Endless loops
+
+The error just gets stuck sometimes.
+
+Sometimes the system can repeat the attempts to recover the component endlessly. This is the correct option if the attempts do not cause damage and if they might have a chance to work, particularly if the problem is actually a transient.
+
+#### Drastic action
+
+More drastic alternatives include making the error processing less local.
+
+More and more processes, farther and farther from the faulty one, become involved in the recovery. 
+
+For example, a first attempt might be to correct an input and retry an action. If that doesn’t achieve success then the task that processes the input is restored to a pre-error state through a *checkpoint* and *rollback*. If that does not succeed then the task is restarted. And if that doesn’t succeed then the task is assigned to a redundant processor.
+
+#### Someone in charge
+
+Escalation should report to *Someone in Charge* (Component) for it to trigger some new action. Depending on the nature of the errors and failures, it might request that there be human intervention. You should ensure that people can override system behavior when absolutely necessary
+
+For a human operator there should be a predefined list of recovery actions that can be taken. The list should start with those things that are fast, have a high probability of recovering and a minimal impact on other aspects of system operation; followed by other actions that are increasingly disruptive and slower.
+
+## Solution
+
+When recovery or mitigation is failing, escalate the action to the next more drastic action
+
+At the end of the chain of Escalations, sometimes the best thing is to resume partial operation. Isolate the functionality that has the errors and allow the rest of the system to proceed as best as it can. 
+
+Humans will almost always have to step in and correct the situation, or at least tell the system to retry the error correction. 
+
+#### Identifying the escalation steps
+
+The escalation steps are not generic. They depend on the nature of the system and the nature of the errors and failures that are occurring. The escalation steps are a part of the system design and should be identified as part of the design process.
+
+
+
 # Prüfungsfragen
 
-    1. Frage **[Ja/Nein]**
+    1.  Frage **[Ja/Nein]**
     2.  Frage **[Ja/Nein]**
-
-## Fadil
-
-Units of Mitigation
-Recovery Blocks
-Escalation

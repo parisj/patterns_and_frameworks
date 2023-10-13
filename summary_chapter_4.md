@@ -26,8 +26,7 @@ Units of mitigation:
 
 -   Should not share more than one processor unless
     there is shared memory, or more than one region of non-distributed memory. Error detection and processing techniques work best with clear boundaries of memory.
--   Should be able to conduct self checks
-    to detect when they are not operating correctly.
+-   Should be able to conduct self checks to detect when they are not operating correctly.
 -   Should fail in a deterministic way.
 -   If they are so small that any errors that occur cannot be recovered or mitigated, the unit is too small.
 -   Should be able to be restarted without affecting the rest of the system.
@@ -52,7 +51,7 @@ In a multi-module design, the system is divided into multiple modules. Each modu
 
 Using this design we unlock more possibilities to recover from errors. We can now recover from errors in one module while the others continue operation.
 
-Some of the techniques possible include FAILOVER , retaining state via CHECKPOINTS , redirecting operations through ROLLBACK or ROLL-FORWARD (Will be described later).
+Some of the techniques possible include FAILOVER , retaining state via CHECKPOINTS, redirecting operations through ROLLBACK or ROLL-FORWARD (Will be described later).
 
 ###### Overhead
 
@@ -85,12 +84,12 @@ Divide the system into parts that will contain both any errors and the error rec
 
 ## Example
 
-Imagine a system with a three-tiered architecture^: user interface, a database and a processing unit.
+Imagine a system with a three-tiered architecture: user interface, a database and a processing unit.
 
 |      | Single mitigation unit                                | Tier-based mitigation unit                                                     | Redundant tiers or queues                                                                                  |
 | ---- | ----------------------------------------------------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
 | Pros | Common approach,<br>Used by many systems              | Easy to define the units,<br> clean interfaces between tiers                   | The system can redistribute the workload if a single tier error occurs,<br>Queue buffers incoming requests |
-| Cons | when something fails the entire system is unavailable | any tier level error processing actually takes the whole system out of service | Adds complexity and further consideration into the whole system architecture                               |
+| Cons | when something fails the entire system is unavailable | Any tier-level error processing actually takes the whole system out of service | Adds complexity and further consideration into the whole system architecture                               |
 
 ---
 
@@ -268,7 +267,7 @@ For example, a first attempt might be to correct an input and retry an action. I
 
 #### Someone in charge
 
-Escalation should report to _Someone in Charge_ (Component) for it to trigger some new action. Depending on the nature of the errors and failures, it might request that there be human intervention. You should ensure that people can override system behavior when absolutely necessary
+Escalation should report to _Someone in Charge_ (Component) for it to trigger some new action. Depending on the nature of the errors and failures, it might request that there be human intervention. You should ensure that people can override system behavior when absolutely necessary.
 
 For a human operator there should be a predefined list of recovery actions that can be taken. The list should start with those things that are fast, have a high probability of recovering and a minimal impact on other aspects of system operation; followed by other actions that are increasingly disruptive and slower.
 

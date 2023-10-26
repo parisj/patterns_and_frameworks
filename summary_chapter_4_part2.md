@@ -105,7 +105,7 @@ This is a problem when the system is overloaded or in error processing state, th
 By intermixing maintenance inputs and application inputs the system can be opened up for security breaches. A person with access to the application can attempt to breach the security of the system by submitting a maintenance command instead of an application-related one. 
 
 ### Forces
-Forces for the Maintenance Pattern are: 
+Forces for the Maintenance Interface are: 
 - **Maximum Availability**: The system should as available as possible
 - **Load Management**:  The workload related inputs outnumber the maintenance messages in most applications.
 - **Timely Decisions**: During system failures or errors, quick decisions are needed and information for maintaining the system should be readily available

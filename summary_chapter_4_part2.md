@@ -2,9 +2,7 @@
 
 We continue describing the patterns mentioned in chapter 4 of the book Fault Tolerance.
 
-<div style="width:60%;margin:auto">
-	<img src="./patterns_map.png" ></img>
-</div>
+<img src="./patterns_map.png" style="display:block;width:60%;margin:auto" ></img>
 
 ## Someone in charge
 
@@ -37,13 +35,13 @@ The module that performs the management can get complicated if it has to adminis
 
 ##### Dual Masters
 
-The problem of ‘dual masters’ arises when more than one element claims to be *SOMEONE IN CHARGE*. A similar problem arises in *VOTING*. The system must have an automatic way of resolving this situation. Two simple techniques to resolve the issue are to use a lower address or an earlier processor start time to decide which should be considered to be in charge
+The problem of ‘dual masters’ arises when more than one element claims to be _SOMEONE IN CHARGE_. A similar problem arises in _VOTING_. The system must have an automatic way of resolving this situation. Two simple techniques to resolve the issue are to use a lower address or an earlier processor start time to decide which should be considered to be in charge
 
 ### Solution
 
 All fault tolerant related activities have some component of the system (‘someone’) that is clearly in charge and that has the ability to determine correct completion and the responsibility to take action if it does not complete correctly. If a failure occurs, this component will be sure that the new failure doesn’t stop the system.
 
-The component in charge must be able to monitor the progression of actions taken to process the error and if they become stalled it must be able to initiate alternative actions, possibly _ESCALATION_ to 
+The component in charge must be able to monitor the progression of actions taken to process the error and if they become stalled it must be able to initiate alternative actions, possibly _ESCALATION_ to
 more drastic measures.
 
 Sometimes the FAULT OBSERVER (10) or the SYSTEM
@@ -51,14 +49,14 @@ MONITOR (15) perform dual rolls and serve as the elements
 in charge in addition to their other responsibilities
 
 **A Responsibility list**
-| Action        | In Charge   |
+| Action | In Charge |
 | ------------- | ----------- |
-| Checkpointing | Each task   |
-| Rollback      | Component R |
-| Roll-Forward  | Component R |
+| Checkpointing | Each task |
+| Rollback | Component R |
+| Roll-Forward | Component R |
 | Load Shedding | Component S |
 
-The general techniques of *SYSTEM MONITOR*, including *HEARTBEATS* and *ACKNOWLEDGEMENTS*, can be used to ensure that the system has not silently failed
+The general techniques of _SYSTEM MONITOR_, including _HEARTBEATS_ and _ACKNOWLEDGEMENTS_, can be used to ensure that the system has not silently failed
 
 ### Example
 
@@ -70,13 +68,65 @@ The general techniques of *SYSTEM MONITOR*, including *HEARTBEATS* and *ACKNOWLE
 
 ## Minimize Human Intervention
 
+<img src="./minimize_human_intervention.png" style="display:block;width:40%;margin:auto" ></img>
+
 ### Intro
+
+People are the cause of many failures in long-running systems through the inappropriate actions they sometimes take. The goal of this pattern is to minimize the amount of human intervention required to keep the system running.
+
+##### Three types of Error
+
+There are three categories of errors in highly available systems.
+
+1. Hardware: Errors that occur in computer and related elements. (networks, storage, etc.)
+2. Software: Design and implementation errors in the software.
+3. Procedural: Errors that are result of mistakes made by the operating personnel.
+
+The system must be designed to minimize the ability for operating personnel to cause procedural errors.
 
 ### Problem
 
+How can we prevent people from doing the wrong things and causing errors?
+
 ### Forces
 
+##### Humans make mistakes
+
+People do worse than computers in situations where there are long series of steps needed to accomplish a task. People skip steps, either accidentally or on purpose. Computer systems will do them in the same order each time.
+
+##### Humans are slow
+
+Events, normal processing or failures, are happening so quickly that inclusion of the human operator is infeasible. Design the system to detect and process errors automatically.
+
+This will be the fastest way to return to system availability.
+
+Design the system to present status information to the operators as quickly as possible and in a way that they notice. Sounding an _AUDIBLE ALARM_ is one way to get their attention quickly.
+
+##### Use Humans for what they are good at
+
+One of the things that people do better than machines is drawing meaning from sequences of events that seem unrelated.
+
+##### Provide information
+
+The system should give people enough information to help automatic actions. The system must also provide the mechanisms to enable people to intervene when necessary, this is described in _MAXIMIZE HUMAN PARTICIPATION_
+
+The spinning hourglass or a loading screen give the user an indication that the system is performing actual work and has not died.
+
+If the operators are not comfortable that the system is operating, <u>they will do something</u>, and what they do might make the situation worse.
+
 ### Solution
+
+Design the system in a way that it is able to process and resolve errors automatically, before they become failures. This speeds error recovery and reduces the risk of procedural errors contributing to system unavailability.
+The system should provide the operating personnel with enough information for them to follow the progress of error detection and processing progress, but the operating personnel shouldn’t be required for the resolution of errors.
+
+Avoid the following error reporting:
+<img src="minimize_human_intervention_error_reporting.png" style="display:block;width:40%;margin:auto">
+
+How do you implement this?
+
+1. Make sure that errors are reported to the _FAULT OBSERVER_ which will ensure that all the appropriate monitoring systems will be notified.
+2. Make sure that individual components do not send messages to the outside world
+3. Design the strategies and techniques into the system that enable it to detect, process, and ultimately treat the faults, errors, and failures without human assistance.
 
 ---
 

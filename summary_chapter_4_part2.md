@@ -44,9 +44,7 @@ All fault tolerant related activities have some component of the system (‘some
 The component in charge must be able to monitor the progression of actions taken to process the error and if they become stalled it must be able to initiate alternative actions, possibly _ESCALATION_ to
 more drastic measures.
 
-Sometimes the FAULT OBSERVER (10) or the SYSTEM
-MONITOR (15) perform dual rolls and serve as the elements
-in charge in addition to their other responsibilities
+Sometimes the *FAULT OBSERVER* or the *SYSTEM MONITOR* perform dual rolls and serve as the elements in charge in addition to their other responsibilities
 
 **A Responsibility list**
 | Action | In Charge |

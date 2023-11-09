@@ -325,11 +325,12 @@ If there are more than two elements performing the calculation, then a simple st
 Four units can get into this situation where two can vote on each of the possible answers
 
 Solution:
-- Median Voting:
-  - selects the result that is the median of the computations by iteratively removing from consideration the extreme values
-- Formalized plurality voting:
-  - divides the calculations into partitions based upon their value. An element is chosen at random from the partition that has the largest number of members
-- Weighted average voting
+
+-   Median Voting:
+    -   selects the result that is the median of the computations by iteratively removing from consideration the extreme values
+-   Formalized plurality voting:
+    -   divides the calculations into partitions based upon their value. An element is chosen at random from the partition that has the largest number of members
+-   Weighted average voting
 
 ### Multiple correct results
 
@@ -344,8 +345,9 @@ Computer programs are generally deterministic, unless there are faults active.
 **Any disagreement in the computation is the sign of an error.**
 
 This is based on two assumptions:
-- The redundant elements were given the same inputs
-- The elements were designed to produce the same results given the same inputs
+
+-   The redundant elements were given the same inputs
+-   The elements were designed to produce the same results given the same inputs
 
 Voting mechanisms muss check whether the results are acceptable or consistent not if the answer is correct.
 

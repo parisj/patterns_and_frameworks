@@ -23,7 +23,7 @@ A System Monitor can be implemented in different ways
 The location of the System Monitor can also differ depending on the system's complexity and reliability requirements:
   - Implement as part of the FAULT OBSERVER
   - A Separate Element (on the same hardware and system) 
-  - Using specialized Hardware (different Hardware component for monitoring)
+  - Using specialised Hardware (different Hardware component for monitoring)
 In systems with extreme fault tolerance requirements the FAULT OBSERVER is frequently the entity that takes a global view of the situation and decides on the best processing steps to take. (Role: SOMEONE IN CHARGE) 
 ## Example
 

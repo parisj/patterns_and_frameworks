@@ -16,6 +16,7 @@ The system needs a balance between not overusing network and and processing reso
 ## Solution
 A System Monitor is implemented to observe system behavior or specific parts to ensure continious operation
 The System Monitor reports to the FAULT OBSERVER and initiate corrective action upon detecting a failure. 
+
 A System Monitor can be implemented in different ways
   - Choosing the best suited monitoring method: HEARTBEAT, WATCHDOGS, ACKNOWLEDGMENT 
   - Setting realistic thresholds for error detection

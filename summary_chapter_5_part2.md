@@ -99,13 +99,80 @@ Some other mechanisms such as _CHECKSUMS_, _WATCHDOG_ or _COMPLETE PARAMETER CHE
 
 ## Intro
 
+Both silent and crash failures are possible. They must be detected as quickly as possible to minimize the Mean Time To Repair attribute of availability
+
 ## Problem
+
+How does the _SYSTEM MONITOR_ know that a particular monitored task is still working?
 
 ## Forces
 
+### Regular heartbeats
+
+The health reports, or heartbeats, should occur at regular intervals. The timing enables the _SYSTEM MONITOR_ to detect that the monitored task has fallen behind or missed a report. _REALISTIC THRESHOLD_  provides guidance for setting appropriate intervals.
+
+##### Pings
+
+A ‘ping like’ message is a very simple way for the _SYSTEM MONITOR_ to ask if the monitored task is still processing. 
+The message will stimulate an _ACKNOWLEDGEMENT_  response
+
+##### System calls
+
+Another way for the monitored task to report that it is still processing is for it to regularly execute a system call that was created for heartbeating purposes. Failure to execute the system call at a predetermined interval indicates a failure.
+
+### Requesting heartbeats
+
+Sometimes the task being monitored does not realize that it is being watched. This occurs when an existing application is being integrated into a highly available environment. 
+
+The monitored task might have such an important place in the system that it assumes that it always will be available so it does not implement any kind of status reporting.
+
+In these cases the _SYSTEM MONITOR_  should initiate a request for a status report or ‘heartbeat’
+
+### Calculate in the heartbeats
+
+You must weigh the time overhead associated with adding messages or other fault tolerance related actions with the benefit of the coverage that they provide.
+
+During idle periods the overhead will be negligible. 
+
+When the system is busy heartbeat messages can lead to extra messages that aren’t necessary because the stream of _ACKNOWLEDGEMENTS_ is giving sufficient status information. In this case you can use the correct processing of a sequence of requests as a sign of life.
+
+### Disable the heartbeats when unnecessary 
+
+A _REALISTIC THRESHOLD_ should be put in place when the system is busy to reduce the the unnecessary overhead that is draining processing and messaging bandwidth from real work.
+
+Building the intelligence to vary the thresholds (REALISTIC
+THRESHOLD) based upon workload level adds complexity
+and introduces faults.
+
 ## Solution
 
-## Example
+The _SYSTEM MONITOR_ should see a periodic heartbeat from the monitored task. If the monitored task does not supply a heartbeat response within the required time then recovery action should be taken.
+
+<div style="display:block;height:200px;text-align:center">
+	<img src="heartbeat2.png" style="position:relative;margin: 0px 50px">
+	<img src="heartbeat.png" style="position:relative;margin: 0px 50px">
+</div>
+<br>
+<br>
+
+There are two variants to this solution: In the first one the monitored task sends a periodic, autonomous report to the _SYSTEM MONITOR_ to show that it is alive.
+
+In the second the SYSTEM MONITOR requests the monitored task give it a report. 
+
+Choosing a variant depends on:
+- The complexity that will be built into the _SYSTEM MONITOR_ 
+- if the monitored task can be modified with the automatic capability.
+
+Heartbeats are useful when the monitor is a person (loading screen, progress bar, etc.).
+
+#### Integration of heartbeats With the other units of mitigation
+
+- _REALISTIC THRESHOLD_ offers guidance on the frequency of the heartbeats.
+- _WATCHDOG_ describes a way of monitoring a task by watching its interactions with the rest of the system.
+- If the heartbeats arrive, but don't look right, the _SYSTEM MONITOR_ must decide if it was a fault in the communications system, or if the monitored system is alive – but not well.
+- _FAULT CORRELATION_ is needed to ensure that communication failures are detected.
+- Detection of message delays is input to the selection of the correct _OVERLOAD TOOLBOX_  of mitigation techniques that should be employed.
+
 
 ---
 

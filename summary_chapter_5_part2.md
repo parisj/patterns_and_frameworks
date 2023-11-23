@@ -112,18 +112,79 @@ Some other mechanisms such as _CHECKSUMS_, _WATCHDOG_ or _COMPLETE PARAMETER CHE
 
 # Watchdog
 
+<img src="watchdog.png" style="display:block;width:200px;margin:auto">
+
 ## Intro
+
+You are implementing a _SYSTEM MONITOR_ . You are worried about adding complex software to the system because that can reduce the reliability.
 
 ## Problem
 
+How can the system ensure a task is alive with a simple mechanism and you can’t or don’t want to add to messaging or processing overhead
+
 ## Forces
+
+### No extra messages
+
+In many circumstances you can’t add in any new messages because of the bandwidth limitation. 
+If something is faulty it may not report its state correctly. 
+Status reporting capability adds complexity, and hence the chance for additional faults.
+
+### Add checks 
+
+If you can’t add messages to the system, you can add checks on the validity of the tasks operations. 
+One way discussed in other patterns is the redundancy based detection of errors by introducing _REDUNDANCY_ or _RECOVERY BLOCKS_  
+
+These techniques are very expensive, in terms of both processing resources and complexity.
+
+### Watch activities that happen routinely
+
+One way of monitoring the system without increasing the complexity is to watch activities that happen routinely.
+Example: looking if communications are happening as expected
+- Are messages going both ways? 
+- Are they frequent enough?
+
+The monitor doesn’t become part of the message stream, it watches from afar.
+
+### Use timers (timeouts)
+
+Another technique that adds only a little to the complexity of the system is to set a hardware time before a critical operation is started.
+
+During and at the end of the operation the timer is checked to determine if the timing was within acceptable limits.
+
+### Add hardware
+
+Sometimes you can add new hardware to the design. A simple hardware component that will watch the monitored task’s execution can be built. 
+
+Possible uses:
+- Monitor the control leads of a microcontroller
+- Watch a word in memory that the task is known to use, or it could be a passive observer
+watching an exchange of messages
+
+Even if new hardware cannot be added the monitor can watch some kinds of things from another process on the same processor or even from another general purpose processor (as contrasted with dedicated watching hardware)
 
 ## Solution
 
-## Example
+Add in the capability for the monitor to observe the monitored task’s activities. 
+
+A Watchdog can be either a hardware or a software component depending on the system requirements, but in either case it will watch visible effects of the monitored task. 
+
+The monitored task will not be modified. 
+
+The Watchdog should take some actions on the monitored task if it doesn't comply with the desired behavior.
+
+<img src="watchdog_example.png" style="display:block;margin:auto">
+
+One way of implementing this is via peepholes or hardware test points to enable the Watchdog to look inside the tasks.
+
+This pattern is very similar to _SYSTEM MONITOR_. 
+A key difference is that a _SYSTEM MONITOR_ **watches a number of tasks**
+A _WATCHDOG_ is assigned to monitor **only one**. 
+
+A _WATCHDOG_ will report to a _SYSTEM MONITOR_ and to a _FAULT OBSERVER_ when it detects a failure.
+_SYSTEM MONITOR_  describes the kinds of things that a _WATCHDOG_ can do if it detects that the monitored task is not behaving properly.
 
 ---
-
 
 # Riding Over Transients
 

@@ -1,34 +1,70 @@
 ###### Anton Paris & Fadil Smajilbasic
 
-# Chapter 5: Detection Patterns
+# Chapter 5
 
----
+The **first step of fault tolerance is detection**. Errors and their underlying faults need to be **detected before** any **recovery or mitigating actions** can be taken to make the system fault tolerant.
 
-# Fault Correlation
+This Chapter introduces different patterns that help **detect the presence of errors** or **failures**, as well as help **finding the faults** that caused them.
 
-## Intro
+- **A priori detection**: Uses **constraints that are known in advance** about the system -\> if range of results is unknown, can not be used.
+- **Comparing Redundant results**: Enough information present (**Values or Context**)
+- **Learn about correct system behavior**: Record of errors and faults detected and apply **Bayesian learning techniques** to learn to **automatically** detect errors and failures
 
-## Problem
+The system needs to be able to **detect both errors and failures**. It also needs to find the **location of the faults** and detect whether **elements of execution have stopped working**. If redundancy is used, a pattern to find out **which result is the correct one** is needed (voting).
 
-## Forces
+The system must also be able to **hinder the error from spreading** throughout the system (containment)
 
-## Solution
+Two mechanism for detecting errors are in common use and **supplement the patterns** in this chapter:
 
-## Example
+- Test function return codes to determine if an **error condition was returned**
+- Use **exception or try/catch** capabilities built into many languages.
 
----
+## Fault Correlation
 
-# Error Containment Barrier
+### Problem
 
-## Intro
+In order to be more fault tolerant the system needs to be **designed to fail silently** when it fails. In order to process an error or failure the system must **identify the error and what fault caused the error**. Errors can be caused by any of **several faults**. Fault tolerance is about **handling the unanticipated** and **undetectable errors** that occur **during execution**.
 
-## Problem
+While **designing and testing** the system different **common errors** will have been **uncovered, isolated, and corrected**. These already give us **information** of what kind of errors are **likely to occur** during normal execution.
 
-## Forces
+### Forces
 
-## Solution
+- The system **must handle unanticipated and undetectable errors** that occur during execution
+- Determining the **specific nature of an error** is crucial for effective error processing
+- **Knowledge about common error types or their signatures** helps in anticipating and **preparing** for likely errors during normal execution
+- **Errors my occur in a cluster or be related**, requiring a method to **identify** and address the **root cause** effectively.
 
-## Example
+### Solution
+
+
+
+1. **Error Identification, Grouping, and Analysis:** Determine the **nature of the error**, its impact, and the specific fault causing it. This includes understanding the **error's signature and the context** in which it occurred. Look at the unique signature of the error to **sort it into fault category**.
+2. **Targeted Recovery Actions:** Implement recovery actions that are **specific to the identified fault** (category), **avoiding overly broad** recovery measures that could **unnecessarily impact** the system. 
+3. **Learning from Errors:** Use techniques like **Bayesian learning** to improve error detection and processing based on **past occurrences and successes**. 
+4. **Error Containment:** Once an error is characterized, establish an ERROR CONTAINMENT BARRIER to **prevent it from spreading**. 
+5. **Utilizing Patterns and Techniques:** Apply various techniques for error processing, such as MARKED DATA for data errors, ROLLBACK, and RESTART for execution sequence alterations. 
+6. **Human Participation and Maintenance:** **Share error correlations and data** via FAULT OBSERVER to **enable human intervention** for preventive actions or ROUTINE MAINTENANCE.
+
+## Error Containment Barrier
+
+
+
+### Problem
+
+The Error containment barrier pattern addresses the need for a system to **perform optimally in the presence of faults**. When an error is not handled correctly or is not visible to an observer, the **error can propagate**, potentially **causing failures elsewhere**. Without interventions, errors may persist indefinitely, leading to a possible system termination - failure.
+
+### Forces
+
+- The **effects of an error** cannot always be **predicted in advance** and some potential errors can not be **predicted at all**.
+- Fault tolerance means that a system must **find a way to ignore or mask the faults** in order to **tolerate** them. Faults are a part of every system!
+- **Mitigating errors is not always possible** and depends on the nature of the error and the fault.
+- The system needs to be able to detect errors, otherwise it can not be recovered or mitigated.
+
+### Solution
+
+- The system **should isolate the error to a UNIT OF MITIGATION**. Stop the flow of errors from one part to another with a **barrier impervious to errors**, QUARANTINE, and **initiate either error recovery or error mitigation**.
+- Error containment barrier pattern **builds on** error detection
+- If an error is found, it should be **isolated and contained** by techniques that are in chapter 6 and 7, they will go more into detail how actually recover from an error or mitigate the effects of the error
 
 ---
 
@@ -360,3 +396,12 @@ With any voting scheme the design must mitigate the effects of malicious failure
 The voting should be administered by _SOMEONE IN CHARGE_ . With any voting method you must also make sure that you can trust the entity taking the vote.
 
 ---
+## Questions
+
+1. Fault Correlation suggests that **error signatures** learned **during design and testing activities** can provide valuable insights into **likely errors** during normal execution.
+2. A system needs to use specific indicators in order to measure the performance?
+
+## Solutions
+
+1. \[YES\]
+2. \[NO\] System indicators can be used as well

@@ -205,25 +205,31 @@ Errors have signatures that can be indentified by FAULT CORRELATION. These signa
 - For web requests, users often re-request pages quickly, effectively riding over transient network errors.
 ---
 
-
 # Leaky Bucket Counter
 
 ## Intro
+Leaky Bucket Counter is an implementation of RIDING OVER TRANSIENTS, and is designed for systems that need to automatically recognize and correct errors, distinguishing between transient errors and repeating permanent faults. Each UNIT OF MITIGATION that is to be watched has a Leaky Bucket Counter. 
+
 
 ## Problem
-
+The Challenge is determining wheter an error is transient (temporary) or a repeating permanent fault that requires correction. Errors are initially detected and classified. Some errors can be immediately identified as critical or non-transient based on their signatures and require immediate action. 
+Other errors, particulary those that are not clearly critical or might be transient still need a way of handling them appropietly. 
 ## Forces
+The system my encounter various errors, some of which are transient like signal crosstalk or static dicharges, and others that are permanent.
+There is a need to balance the tolerance for transient errors against the necessity to act on permanent faults. So a kind of measuring needs to be introduced to decide if a error needs more attention. 
 
 ## Solution
-
+- Implement a Leaky Bucket Counter for each unit of mitigation. The counter is incremented with each error and periodically decremented.
+- If the counter exceeds a predetermined threshold it is a sign that they are permanent rather than transient errors.
+- The rate of decrementing the counter (leak rate) is crucial and should be set to reflect the system's tolernace for transient errors. 
 ## Example
-
+In the No. 4 Electronic Switching System (4ESS Switch) triggers error recovery when the number of occurences exceeds three, with the leak rate of 30 seconds
 ---
 
 ## Questions
 
 1. With acknowledgments we can be sure that the system is alive and is  functioning correctly. True or False?
-2.
+2. The Leaky Bucket Counter also counts the already known critical errors and waits for the bucket to "overflow" before handling them.
 
 ## Answers
 
@@ -237,6 +243,6 @@ Errors have signatures that can be indentified by FAULT CORRELATION. These signa
 <details>
   <summary>Answer 2</summary>
 
-  This is the hidden content that will be revealed when you click on the "Click to expand" summary.
+  **FALSE**: Known critical errors are handled immediately 
 
 </details>

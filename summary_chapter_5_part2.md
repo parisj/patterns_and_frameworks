@@ -7,15 +7,26 @@
 # System Monitor
 
 ## Intro
-
+The design of the system is for it to exhibit crash failures, when it silently stops working. The system needs to find out as quickly as possible so that recovery techniques can be applied. FAULT OBSERVER is used to coordinate information Flow. If a system fails silent the error propagation can be reduced but someone needs to get informed about the failure. For this task, there is a System Monitor pattern that lays the base for detection of system failures and communicates with FAULT OBSERVER. 
 ## Problem
-
+The issues when a system stops working is that it preferrably is fail-silent to reduce the propagation of the error and therefore detection becomes challenging. It is also a challenge to find the error a part of the system malishious fails and detect the failure. 
 ## Forces
-
+The systems architecture and the criticality of components play a role in determining the monitoring approach and can differ from system to system. 
+The system needs a balance between not overusing network and and processing resources, by avoiding agressive error reporting, and the need to detect failures.
 ## Solution
-
+A System Monitor is implemented to observe system behavior or specific parts to ensure continious operation
+The System Monitor reports to the FAULT OBSERVER and initiate corrective action upon detecting a failure. 
+A System Monitor can be implemented in different ways
+  - Choosing the best suited monitoring method: HEARTBEAT, WATCHDOGS, ACKNOWLEDGMENT 
+  - Setting realistic thresholds for error detection
+The location of the System Monitor can also differ depending on the system's complexity and reliability requirements:
+  - Implement as part of the FAULT OBSERVER
+  - A Separate Element (on the same hardware and system) 
+  - Using specialized Hardware (different Hardware component for monitoring)
+In systems with extreme fault tolerance requirements the FAULT OBSERVER is frequently the entity that takes a global view of the situation and decides on the best processing steps to take. (Role: SOMEONE IN CHARGE) 
 ## Example
-
+It is better for an ATM to stop taking customer requests than to wrongly dispence money while it is processing an error. (Accuracy) 
+If Availability is more important than absolute correctness, options like REDUNDANCY, RESET or HUMAN INTERVERNTION might be used (Availability) 
 ---
 
 # Acknowledgement

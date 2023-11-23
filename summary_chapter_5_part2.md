@@ -28,6 +28,7 @@ In systems with extreme fault tolerance requirements the FAULT OBSERVER is frequ
 
 It is better for an ATM to stop taking customer requests than to wrongly dispence money while it is processing an error. (Accuracy) 
 If Availability is more important than absolute correctness, options like REDUNDANCY, RESET or HUMAN INTERVERNTION might be used (Availability) 
+
 ---
 
 # Acknowledgement

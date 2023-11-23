@@ -224,6 +224,7 @@ There is a need to balance the tolerance for transient errors against the necess
 - The rate of decrementing the counter (leak rate) is crucial and should be set to reflect the system's tolernace for transient errors. 
 ## Example
 In the No. 4 Electronic Switching System (4ESS Switch) triggers error recovery when the number of occurences exceeds three, with the leak rate of 30 seconds
+
 ---
 
 ## Questions

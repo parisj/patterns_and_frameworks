@@ -134,7 +134,7 @@ If every error or fault detected is recovered and handled, the system wasted res
 The need to quickly detect and process errors must be balanced with the risk of reacting to transient errors that might resolve themselves. Differentiating between transient and non transient errors is crucial, as one needs no attention where as the other must be handled as quickly as possible.
 Errors have signatures that can be indentified by FAULT CORRELATION. These signatures help categorize the errors and decide if an error is transient or requires immediate action.
 ## Solution
--Implement monitoring and fualt correlation to identify errors. Begin error processing immediately for non-transient errors. 
+- Implement monitoring and fualt correlation to identify errors. Begin error processing immediately for non-transient errors. 
 - For potential transient fault, monitor the frequency but delay action unless the occurrences exceeds expected levels.
 - Set thresholds for tolerating transient errors based on the system's context and the risk of error propagation
 

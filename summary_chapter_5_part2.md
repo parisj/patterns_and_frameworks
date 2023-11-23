@@ -25,6 +25,7 @@ The location of the System Monitor can also differ depending on the system's com
   - Using specialized Hardware (different Hardware component for monitoring)
 In systems with extreme fault tolerance requirements the FAULT OBSERVER is frequently the entity that takes a global view of the situation and decides on the best processing steps to take. (Role: SOMEONE IN CHARGE) 
 ## Example
+
 It is better for an ATM to stop taking customer requests than to wrongly dispence money while it is processing an error. (Accuracy) 
 If Availability is more important than absolute correctness, options like REDUNDANCY, RESET or HUMAN INTERVERNTION might be used (Availability) 
 ---

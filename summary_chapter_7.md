@@ -35,26 +35,129 @@ Chapter 7 touches upon mitigating data errors through marking unreliable data an
 
 ## Intro
 
+Overload situations occur when the system loses the resources necessary to handle its workload efficiently. 
+This might be due to internal problems, such as memory leaks or from too many requests coming from external sources.
+
+When external systems send too many requests for a service too quickly, the system must handle as many as possible and then degrade as smoothly and as little as possible.
+
 ## Problem
+
+How should the system handle situations of overload?
 
 ## Forces
 
+#### Components affected by overload:
+
+- **Memory**
+  - More memory might be required to store the requests than the system has available.
+- **Tangible resources**
+  - The requests might require the use of tangible peripheral resources that are already in use.
+- **CPU time**
+  - Processing the requests might take more time than the system has.
+
+
+There are a variety of techniques designed to address resource overloads. 
+
+Some techniques work best with only specific types of resources, and don’t help mitigate others.
+
+Some techniques will work for all three. 
+
+**<u>Trying to manage one type of overload with a mechanism designed for another might have devastating results.</u>**
+
 ## Solution
 
-## Example
+Have multiple toolboxes with which to mitigate overloads.
 
+**Use the proper tools for the job**
+
+One toolbox is for managed resources like buffers or ports being controlled by the system.
+Another for memory, and yet another for processor CPU time. 
+
+Avoid grouping all of the possible techniques together, as they will only rarely work well for overloads in other categories. 
+
+#### Evaluate overloads
+
+Knowing whether the system is in processor or resource overload requires some way of measuring the overload. The system should use _EXISTING METRICS_ to evaluate overloads.
+
+#### For Tangible Resources
+
+An effective technique to deal with overloads of the tangible variety is to _QUEUE FOR RESOURCES_. 
+
+_EQUITABLE RESOURCE ALLOCATION_ discusses a way to divide up the tangible resources such as memory and peripheral equipment.
+
+#### For CPU
+
+A technique similar to _QUEUING FOR RESOURCES_ that works for CPU cycles which are intangible is to take on _FRESH WORK BEFORE STALE_.
+
+_FRESH WORK BEFORE STALE_: Using LIFO queue to ensure that at least some requests will have a high quality of service.
+
+The capabilities to _SHARE THE LOAD_ with peers or to _SHED LOAD_ also help with CPU time.
+
+#### Overall
+
+In a network of peers, strategies can be designed to enable one peer to notify its neighbors that it is in overload and seek assistance in handling the traffic or in reducing the load from its peers.
+
+Both _FRESH WORK BEFORE STALE_ and _FINISH WORK IN PROGRESS_ consider user/consumer/customer behavior when designing the system’s mechanisms to deal with an excess amount of work.
 
 ---
 
 # Deferrable Work
 
+_(work that can be postponed)_
+
 ## Intro
+
+You have the following situation:
+
+More new work is arriving than the system can normally handle. The mitigation techniques are working and the system is stable.
+
+The system schedules _ROUTINE AUDITS_ and other _ROUTINE MAINTENANCE_ tasks to keep the system working well.
+
+The system is able to process the workload, although it might be _SHEDDING LOAD_.
+
+The system is doing well despite the extra load. It's not causing errors, and it will go back to normal once the extra work is done.
+
 
 ## Problem
 
+What work should the system shed when the choices are: 
+handling most of the new incoming work or the routine maintenance workload?
+
 ## Forces
 
+<u>There are not enough resources to handle both the new work and to continue the routine work.</u>
+
+#### Make a choice
+
+The routine work keeps the system fault tolerant.
+
+The choice is to reduce the revenue producing work even more or to restrict some of the maintenance work that prevent errors.
+
+#### Defer the maintenance work
+
+If the system is in overload and is stable, system resources should all be used to process the workload.
+
+It makes sense to defer the work tasks when the system is **not** working properly and then perform maintenance work (such as _ROUTINE MAINTENANCE_ and _ROUTINE AUDITS_).
+
+#### IF it ain't broke, don't fix it
+
+If the system is working at capacity or above and doing it well, do not check if it works: concentrate on the primary aspects of operation.
+
 ## Solution
+
+**Make the routine work deferrable.**
+If the system is tending toward overload, chances are that the periphery and software are working, otherwise where would all that work be coming from?
+
+<img src="./deferable_work.png" style="display:block;margin:auto;width:75%">
+
+There is a chance that the system just seems like it’s in overload, though it may be really reacting to errors.
+
+In that case, _SOMEONE IN CHARGE_ should employ _REASSESS OVERLOAD DECISION_.
+_REASSESS OVERLOAD DECISION_ also addresses when this strategy is not providing enough relief and the system is not really stable.
+
+Everything that the system does is important to someone. But not everything is directly related to the primary purpose of the system. 
+
+Tasks should not be deferred forever because that lowers the overall fault tolerance of the system.
 
 
 # Reassess Overload Decision
@@ -106,11 +209,56 @@ In a scenario where many database queries and a few order placements are receive
 
 ## Intro
 
+Situation: The system is mitigating a workload spike, and is not otherwise in the midst of processing an error. 
+
+Too many requests are being received.
+
 ## Problem
+
+What should be done with requests for resources that cannot be handled immediately when they arrive?
+
+## Forces
+
+#### Shed load
+
+An option for the system is to discard all requests that it can’t handle immediately as they arrive.
+
+This supports the pattern _SHED LOAD_ (not handled).
+
+Only those requests that can be handled will be kept. 
+This will have immediate effects on an overload.
+
+###### Flaws
+
+- A request that arrived as several individual requests might be prevented from completing.
+- Important single work items might be eliminated without any consideration
+- The overload might be momentary, and if the request were put in a queue then there may be resources available for it after a very short wait.
+
+#### Queue requests
+
+Managing the queue requires resources and introduces overhead. You must be careful to not make the situation worse by designing inefficient queue handling methods
+
+If the system can store the work in a queue for later processing then the work item might complete eventually.
+
+###### Risks
+- The queue might become longer than can be effectively managed
+- If after a wait the resources needed for a request are still not available, the request needs to be rejected at that point, or put back in the queue.
+
 
 ## Solution
 
-## Example
+Store requests for service that cannot be handled immediately in a queue, Figure 68. Give the queue a finite length to improve the likelihood that the request is still important when it reaches the head of the line.
+
+##### Computer generated requests
+
+When the requests are computer generated and must be processed in order, a First In First Out (FIFO) queue should be used (as in _FRESH WORK BEFORE STALE_). 
+
+##### Human generated requests
+
+When the requests are human generated and the order of processing is not important, a Last In First Out (LIFO) queue should be used.
+
+The request that was placed on the queue last will think that they received excellent service.
+And the person that placed the longest ago request on the queue probably gave up already.
 
 ---
 

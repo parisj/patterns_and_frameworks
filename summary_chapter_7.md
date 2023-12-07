@@ -69,7 +69,7 @@ The system is overwhelmed with too many work requests, and its current methods t
 - The necessity to efficiently manage and mitigate system overload.
 - The difficulty in accurately identifying the root cause of errors or overload.
 - The potential for system downtime or reduced effectiveness if it cannot process work efficiently.
-- 
+
 ## Solution
 ### Feedback Loop Implementation:
 Introduce a feedback loop for the system to reassess its FAULT CORRELATION decisions. This loop is crucial for determining whether issues are related to timing or execution errors, enabling the exploration of alternative error processing strategies.
@@ -117,7 +117,7 @@ In a scenario where many database queries and a few order placements are receive
 
 ## Questions
 
-1. 
+1. The Equitable Resource Allocation pattern always prioritizes newer requests over older ones.
 2. 
 
 ## Answers
@@ -125,7 +125,7 @@ In a scenario where many database queries and a few order placements are receive
 <details>
   <summary>Answer 1</summary>
 
-  **FALSE**: 
+  **FALSE**: It advocates for a more balanced approach where resources are allocated based on both the availability and priority of different types of requests.
 
 </details>
 
